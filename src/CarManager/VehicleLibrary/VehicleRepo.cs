@@ -34,5 +34,11 @@ namespace VehicleLibrary
             originalVehicle.Model = editVehicle.Model;
 
         }
+
+        public void DeleteVehicle(int id)
+        {
+            var vehicleToDelete = GetById(id);
+            _vehicles.Remove(vehicleToDelete);
+        }
     }
 }

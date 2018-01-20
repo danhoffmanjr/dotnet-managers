@@ -73,7 +73,7 @@ namespace CarManager.Controllers
         // GET: CarManager/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(_vehicleRepo.GetById(id));
         }
 
         // POST: CarManager/Delete/5
@@ -83,7 +83,7 @@ namespace CarManager.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                _vehicleRepo.DeleteVehicle(id);
 
                 return RedirectToAction(nameof(Index));
             }
