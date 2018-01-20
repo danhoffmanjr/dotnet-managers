@@ -11,6 +11,8 @@ namespace CarManager.Controllers
 {
     public class HomeController : Controller
     {
+        private VehicleRepo _vehicleRepo = new VehicleRepo();
+
         public IActionResult Index()
         {
             return View();
@@ -27,6 +29,8 @@ namespace CarManager.Controllers
                 Model = "Grand Cherokee",
                 NumDoors = 5
             };
+
+            _vehicleRepo.AddVehicle(car);
 
             return View(car);
         }
