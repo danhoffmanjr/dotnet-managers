@@ -24,5 +24,15 @@ namespace VehicleLibrary
             newVehicle.Id = nextId++;
             _vehicles.Add(newVehicle);
         }
+
+        public void EditVehicle(Vehicle editVehicle)
+        {
+            var originalVehicle = GetById(editVehicle.Id);
+
+            originalVehicle.Year = editVehicle.Year;
+            originalVehicle.Make = editVehicle.Make;
+            originalVehicle.Model = editVehicle.Model;
+
+        }
     }
 }
