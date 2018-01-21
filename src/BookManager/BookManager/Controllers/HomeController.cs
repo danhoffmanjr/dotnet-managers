@@ -17,6 +17,32 @@ namespace BookManager.Controllers
         // GET: BookManager
         public ActionResult Index()
         {
+            if (_bookRepo.GetNumBooks() == 0)
+            {
+                var siddhartha = new Book
+                {
+                    Year = 1951,
+                    Title = "Siddhartha",
+                    Author = "Hermann Hesse",
+                    Publisher = "New Directions",
+                    NumOfPages = 152,
+                    ISBN = 0553208845
+                };
+
+                var mobyDick = new Book
+                {
+                    Year = 1851,
+                    Title = "Moby Dick",
+                    Author = "Herman Melville",
+                    Publisher = "Harper & Brothers",
+                    NumOfPages = 720,
+                    ISBN = 0142437247
+                };
+
+                _bookRepo.AddBook(siddhartha);
+                _bookRepo.AddBook(mobyDick);
+            }
+
             return View(_bookRepo.ListAll());
         }
 

@@ -14,6 +14,12 @@ namespace BookLibrary
             return _books;
         }
 
+        public int GetNumBooks()
+        {
+            var count = _books.Count;
+            return count;
+        }
+
         public Book GetById(int id)
         {
             return _books.Find(v => v.Id == id);
