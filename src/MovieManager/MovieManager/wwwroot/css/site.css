@@ -33,3 +33,11 @@
         display: none;
     }
 }
+
+.movie-list:nth-child(even) {
+    background-color: #ccc;
+}
+
+.movie-list-item {
+    padding: 1rem;
+}

@@ -19,6 +19,11 @@ namespace MovieLibrary
                 return _movies.Find(movie => movie.Id == id);
         }
 
+        public int MoviesLength()
+        {
+            return _movies.Count;
+        }
+
         public void AddMovie(Movie newMovie)
         {
             newMovie.Id = nextId++;

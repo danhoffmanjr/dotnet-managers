@@ -24,6 +24,24 @@ namespace MovieManager.Controllers
         // GET: Movies
         public IActionResult Index()
         {
+            if (_movieRepo.MoviesLength() == 0)
+            {
+                Movie brainCandy = new Movie
+                {
+                    Id = 0,
+                    Title = "Brain Candy",
+                    Director = "Kelly Makin",
+                    Genre = "Comedy",
+                    ShortDesc = "A pharmaceutical scientist creates a pill that makes people remember their happiest memory, and although it's successful, it has unfortunate side effects.",
+                    ReleaseDate = DateTime.Parse("04/16/1996"),
+                    Rated = "R",
+                    RunTime = TimeSpan.Parse("1:29"),
+                    Rating = 6.9M
+                };
+
+                _movieRepo.AddMovie(brainCandy);
+            }
+
             return View(_movieRepo.GetMovies());
         }
 
@@ -42,11 +60,12 @@ namespace MovieManager.Controllers
         // POST: Movie/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(IFormCollection collection)
+        public IActionResult Create(Movie newMovieFromPost)
         {
             try
             {
-                // TODO: Add insert logic here
+
+                _movieRepo.AddMovie(newMovieFromPost);
 
                 return RedirectToAction(nameof(Index));
             }
