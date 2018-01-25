@@ -25,7 +25,7 @@
 </div>
 
 <div>
-    <a asp-action="Post">Cancel</a>
+    @Html.ActionLink("Cancel", "Post", new { permalink = Model.Permalink } )
 </div>
 
 @section Scripts {

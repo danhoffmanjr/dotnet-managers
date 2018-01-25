@@ -6,18 +6,14 @@
 
 <h2>SimpleBlog Posts</h2>
 
-<p>
-    <a asp-action="Create">Create Post</a>
-</p>
-
 @foreach (var item in Model)
 {
     <section class="post">
         <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
-        <p> @Html.DisplayNameFor(modelItem => item.AvgAwScore): @Html.DisplayFor(modelItem => item.AvgAwScore)</p>
-        <p>Written by: @Html.DisplayFor(modelItem => item.Author) | Date: @Html.DisplayFor(modelItem => item.PostDate)</p>
+        <p> @Html.DisplayNameFor(modelItem => item.AvgAwScore): @Html.DisplayFor(modelItem => item.AvgAwScore) (@Html.DisplayFor(modelItem => item.AwScores.Count) reviews)</p>
+        <p>Written by: @Html.DisplayFor(modelItem => item.Author) | Posted: @Html.DisplayFor(modelItem => item.PostDate)</p>
         <div>
-            @Html.DisplayFor(modelItem => item.Content)
+            @Html.Raw(item.Content)
         </div>
         <p>
             @Html.ActionLink("See More...", "Post", new { permalink = item.Permalink })

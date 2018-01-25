@@ -30,22 +30,27 @@ namespace Infrastructure
             }
         }
 
+        //Sort Posts Descending by PostDate
         static List<Post> SortDescending(List<Post> postsToSort)
         {
             postsToSort.Sort((a, b) => b.PostDate.CompareTo(a.PostDate));
             return postsToSort;
         }
 
+        //List of all Post Scores
         public List<int> AllPostAwScores()
         {
             return _awScores;
         }
 
+
+        //List of all Posts
         public List<Post> AllPosts()
         {
             return _posts;
         }
 
+        //Create New Post
         public void CreatePost(Post newPost)
         {
             newPost.Id = _nextId++;
@@ -56,6 +61,7 @@ namespace Infrastructure
             SaveFile();
         }
 
+        //Delete Post
         public void DeletePost(Post postToDelete)
         {
             var _postToDelete = GetById(postToDelete.Id);
@@ -63,32 +69,37 @@ namespace Infrastructure
             SaveFile();
         }
 
+        //Get Post By Id
         public Post GetById(int id)
         {
             return _posts.Find(post => post.Id == id);
         }
 
+        //Get Post By Permalink
         public Post GetByPermalink(string perma)
         {
             return _posts.Find(post => post.Permalink == perma);
         }
 
+        //Set Last Post Score
         public void SetLastScore(int id, int newAwScore)
         {
             var post = GetById(id);
             post.AwScore = newAwScore;
         }
 
+        //Set new Average Score for Post
         public void UpdateAwScore(int id, int newAwScore)
         {
             var post = GetById(id);
+            var newAvg = post.AwScores.Average();
             post.AwScores.Add(newAwScore);
             post.AwScore = newAwScore;
-            var newAvg = post.AwScores.Average();
             post.AvgAwScore = newAvg;
             SaveFile();
         }
 
+        //Edit Post
         public void UpdatePost(Post updatedPost)
         {
             throw new NotImplementedException();
