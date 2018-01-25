@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Models;
 using AppCore.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SimpleBlog.Controllers
 {
@@ -34,9 +35,52 @@ namespace SimpleBlog.Controllers
         }
 
         // GET: Blog/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
+        }
+
+        // GET: Blog/Score/5
+        public IActionResult Score()
+        {
+            return View();
+        }
+
+        // POST: Blog/Score/
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Score/{id?}")]
+        public IActionResult Score(int id, int awScore)
+        {
+            try
+            {
+                _postRepo.SetLastScore(id, awScore);
+                return View(_postRepo.GetById(id));
+            }
+            catch (Exception ex)
+            {
+                Console.Write("Hey, You have an error exception in the Score method");
+                throw ex;
+            }
+        }
+
+        // POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SaveScore(int id, int awScore)
+        {
+            try
+            {
+                _postRepo.UpdateAwScore(id, awScore);
+                string returnPerma = _postRepo.GetById(id).Permalink;
+                return RedirectToAction(nameof(Post), new { permalink = returnPerma });
+            }
+            catch (Exception ex)
+            {
+                Console.Write("Hey, You have an error exception in the Save Score method");
+                throw ex;
+            }
         }
 
         // POST: Blog/Create
@@ -58,6 +102,7 @@ namespace SimpleBlog.Controllers
         }
 
         // GET: Blog/Edit/5
+        [Authorize]
         public IActionResult Edit(int id)
         {
             return View();
@@ -81,19 +126,20 @@ namespace SimpleBlog.Controllers
         }
 
         // GET: Blog/Delete/5
+        [Authorize]
         public IActionResult Delete(int id)
         {
-            return View();
+            return View(_postRepo.GetById(id));
         }
 
         // POST: Blog/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(Post postToDelete)
         {
             try
             {
-                // TODO: Add delete logic here
+                _postRepo.DeletePost(postToDelete);
 
                 return RedirectToAction(nameof(Index));
             }

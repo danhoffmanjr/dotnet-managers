@@ -30,6 +30,12 @@ namespace Infrastructure
             }
         }
 
+        static List<Post> SortDescending(List<Post> postsToSort)
+        {
+            postsToSort.Sort((a, b) => b.PostDate.CompareTo(a.PostDate));
+            return postsToSort;
+        }
+
         public List<int> AllPostAwScores()
         {
             return _awScores;
@@ -46,12 +52,15 @@ namespace Infrastructure
             newPost.AvgAwScore = newPost.AwScore;
             _awScores.Add(newPost.AwScore);
             _posts.Add(newPost);
+            SortDescending(_posts);
             SaveFile();
         }
 
         public void DeletePost(Post postToDelete)
         {
-            throw new NotImplementedException();
+            var _postToDelete = GetById(postToDelete.Id);
+            _posts.Remove(_postToDelete);
+            SaveFile();
         }
 
         public Post GetById(int id)
@@ -64,10 +73,20 @@ namespace Infrastructure
             return _posts.Find(post => post.Permalink == perma);
         }
 
-        public double UpdateAwScore(int newAwScore)
+        public void SetLastScore(int id, int newAwScore)
         {
-            _awScores.Add(newAwScore);
-            return _awScores.Average();
+            var post = GetById(id);
+            post.AwScore = newAwScore;
+        }
+
+        public void UpdateAwScore(int id, int newAwScore)
+        {
+            var post = GetById(id);
+            post.AwScores.Add(newAwScore);
+            post.AwScore = newAwScore;
+            var newAvg = post.AwScores.Average();
+            post.AvgAwScore = newAvg;
+            SaveFile();
         }
 
         public void UpdatePost(Post updatedPost)

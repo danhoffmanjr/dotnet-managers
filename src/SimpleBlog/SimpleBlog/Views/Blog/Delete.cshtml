@@ -1,14 +1,15 @@
 ﻿@model AppCore.Entities.Post
 
 @{
-    ViewData["Title"] = "Post";
+    ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Html.DisplayFor(model => model.Title)</h2>
+<h2>Delete</h2>
 
+<h3>Are you sure you want to delete this?</h3>
 <div>
-    <p>Written by: @Html.DisplayFor(model => model.Author)</p>
+    <h4>Post</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -60,32 +61,9 @@
             @Html.DisplayFor(model => model.AwScore)
         </dd>
     </dl>
-</div>
-<div>
-    <form asp-action="Score">
-        <div class="form-group">
-            <input asp-for="Id" class="form-control" type="hidden" />
-            <label asp-for="AwScore" class="control-label">Rate this post:</label>
-            <input asp-for="AwScore" class="form-control" type="range" list="tickmarks" min="0" max="100" step="1" />
-            <datalist id="tickmarks">
-                <option value="0" label="Aweful" />
-                <option value="10" />
-                <option value="20" />
-                <option value="30" />
-                <option value="40" />
-                <option value="50" label="So-So" />
-                <option value="60" />
-                <option value="70" />
-                <option value="80" />
-                <option value="90" />
-                <option value="100" label="Awesome" />
-            </datalist>
-            <span asp-validation-for="AwScore" text-danger"></span>
-        </div>
-        <input type="submit" value="Submit Rating" class="btn btn-default" />
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
     </form>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) | @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) | 
-    <a asp-action="Index">Back to List</a>
 </div>

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Simple Blog Posts";
 }
 
-<h2>Posts</h2>
+<h2>SimpleBlog Posts</h2>
 
 <p>
     <a asp-action="Create">Create Post</a>
@@ -14,16 +14,13 @@
 {
     <section class="post">
         <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
-        <p>AwScore: @Html.DisplayFor(modelItem => item.AvgAwScore)</p>
+        <p> @Html.DisplayNameFor(modelItem => item.AvgAwScore): @Html.DisplayFor(modelItem => item.AvgAwScore)</p>
         <p>Written by: @Html.DisplayFor(modelItem => item.Author) | Date: @Html.DisplayFor(modelItem => item.PostDate)</p>
         <div>
             @Html.DisplayFor(modelItem => item.Content)
         </div>
         <p>
-            <!--@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |-->
             @Html.ActionLink("See More...", "Post", new { permalink = item.Permalink })
-            <!-- |
-    @Html.ActionLink("Delete", "Delete", new { id = item.Id })-->
         </p>
         <p>
             @Html.DisplayFor(modelItem => item.Id) |

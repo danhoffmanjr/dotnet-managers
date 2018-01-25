@@ -14,6 +14,7 @@ namespace AppCore.Interfaces
         void CreatePost(Post newPost);
         void UpdatePost(Post updatedPost);
         void DeletePost(Post postToDelete);
-        double UpdateAwScore(int newAwScore);
+        void SetLastScore(int id, int newAwScore);
+        void UpdateAwScore(int id, int newAwScore);
     }
 }

@@ -33,11 +33,6 @@
                 <input asp-for="Content" class="form-control" />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            <!--<div class="form-group">
-        <label asp-for="AwScore" class="control-label"></label>
-        <input asp-for="AwScore" class="form-control" />
-        <span asp-validation-for="AwScore" class="text-danger"></span>
-    </div>-->
             <input asp-for="Id" class="form-control" type="hidden" />
             <input asp-for="PostDate" class="form-control" type="hidden" value="@DateTime.Now" />
             <input asp-for="AwScore" class="form-control" type="hidden" value="50" />
