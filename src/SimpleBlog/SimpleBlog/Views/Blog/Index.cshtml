@@ -8,11 +8,12 @@
 
 @foreach (var item in Model)
 {
+<main class="posts">
+    <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
     <section class="post">
-        <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
         <p> @Html.DisplayNameFor(modelItem => item.AvgAwScore): @Html.DisplayFor(modelItem => item.AvgAwScore) (@Html.DisplayFor(modelItem => item.AwScores.Count) reviews)</p>
         <p>Written by: @Html.DisplayFor(modelItem => item.Author) | Posted: @Html.DisplayFor(modelItem => item.PostDate)</p>
-        <div>
+        <div class="content-body">
             @Html.Raw(item.Content)
         </div>
         <p>
@@ -23,4 +24,5 @@
             @Html.DisplayFor(modelItem => item.Permalink)
         </p>
     </section>
+</main>
 }

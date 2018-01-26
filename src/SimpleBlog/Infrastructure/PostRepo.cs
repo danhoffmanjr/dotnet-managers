@@ -92,9 +92,10 @@ namespace Infrastructure
         public void UpdateAwScore(int id, int newAwScore)
         {
             var post = GetById(id);
-            var newAvg = post.AwScores.Average();
+            double newAvg;
             post.AwScores.Add(newAwScore);
             post.AwScore = newAwScore;
+            newAvg = post.AwScores.Average();
             post.AvgAwScore = newAvg;
             SaveFile();
         }
