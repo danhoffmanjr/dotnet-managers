@@ -102,26 +102,27 @@ namespace SimpleBlog.Controllers
         }
 
         // GET: Blog/Edit/5
-        [Authorize]
         public IActionResult Edit(int id)
         {
-            return View();
+            return View(_postRepo.GetById(id));
         }
 
         // POST: Blog/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(Post editedPost, IFormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                _postRepo.UpdatePost(editedPost);
 
-                return RedirectToAction(nameof(Index));
+                string returnPerma = _postRepo.GetById(editedPost.Id).Permalink;
+                return RedirectToAction(nameof(Post), new { permalink = returnPerma });
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                Console.Write("Hey, You have an error exception in the Update method");
+                throw ex;
             }
         }
 

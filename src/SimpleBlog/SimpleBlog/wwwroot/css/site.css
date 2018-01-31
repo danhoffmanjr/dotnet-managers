@@ -61,3 +61,7 @@
     max-height: 200px;
     overflow: hidden;
 }
+
+h2.post-title, p.post-meta {
+    text-align: center;
+}

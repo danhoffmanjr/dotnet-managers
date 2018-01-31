@@ -1,91 +1,44 @@
 ﻿@model AppCore.Entities.Post
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 
 @{
     ViewData["Title"] = "Post";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Html.DisplayFor(model => model.Title)</h2>
+<p class="post-meta">Post No.@Html.DisplayFor(model => model.Id)</p>
+<h2 class="post-title">@Html.DisplayFor(model => model.Title)</h2>
+<p class="post-meta">Created by @Html.DisplayFor(model => model.Author) on @Model.PostDate.ToString("MMMM") @Html.DisplayFor(model => model.PostDate.Day), @Html.DisplayFor(model => model.PostDate.Year)</p>
+<section>
+    @Html.Raw(Model.Content)
+</section>
 
-<div>
-    <p>Written by: @Html.DisplayFor(model => model.Author)</p>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Permalink)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Permalink)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PostDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PostDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AvgAwScore)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AvgAwScore) (@Html.DisplayFor(model => model.AwScores.Count) Reviews)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AwScore)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AwScore)
-        </dd>
-    </dl>
-</div>
-<div>
-    <form asp-action="Score">
-        <div class="form-group">
-            <input asp-for="Id" class="form-control" type="hidden" />
-            <label asp-for="AwScore" class="control-label">Rate this post:</label>
-            <input asp-for="AwScore" class="form-control" type="range" list="tickmarks" min="0" max="100" step="1" />
-            <datalist id="tickmarks">
-                <option value="0" label="Aweful" />
-                <option value="10" />
-                <option value="20" />
-                <option value="30" />
-                <option value="40" />
-                <option value="50" label="So-So" />
-                <option value="60" />
-                <option value="70" />
-                <option value="80" />
-                <option value="90" />
-                <option value="100" label="Awesome" />
-            </datalist>
-            <span asp-validation-for="AwScore" text-danger"></span>
-        </div>
+<p>@Html.DisplayFor(model => model.AvgAwScore) (@Html.DisplayFor(model => model.AwScores.Count) Reviews)</p>
+
+<form asp-action="Score">
+    <div class="form-group">
+        <input asp-for="Id" class="form-control" type="hidden" />
+        <label asp-for="AwScore" class="control-label">Rate this post:</label>
+        <input asp-for="AwScore" class="form-control" type="range" list="tickmarks" min="0" max="100" step="1" />
+        <datalist id="tickmarks">
+            <option value="0" label="Aweful" />
+            <option value="10" />
+            <option value="20" />
+            <option value="30" />
+            <option value="40" />
+            <option value="50" label="So-So" />
+            <option value="60" />
+            <option value="70" />
+            <option value="80" />
+            <option value="90" />
+            <option value="100" label="Awesome" />
+        </datalist>
+        <span asp-validation-for="AwScore" text-danger"></span>
         <input type="submit" value="Submit Rating" class="btn btn-default" />
-    </form>
-</div>
+    </div>
+</form>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) | @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) | 
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) | @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
+    <a asp-action="Index">Back to Posts</a>
 </div>

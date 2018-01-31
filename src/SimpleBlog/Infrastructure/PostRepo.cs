@@ -103,7 +103,12 @@ namespace Infrastructure
         //Edit Post
         public void UpdatePost(Post updatedPost)
         {
-            throw new NotImplementedException();
+            var postToUpdate = GetById(updatedPost.Id);
+            postToUpdate.Title = updatedPost.Title;
+            postToUpdate.Author = updatedPost.Author;
+            postToUpdate.Content = updatedPost.Content;
+
+            SaveFile();
         }
 
 

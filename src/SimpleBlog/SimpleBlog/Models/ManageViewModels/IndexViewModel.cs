@@ -10,15 +10,15 @@ namespace SimpleBlog.Models.ManageViewModels
     {
         public string Username { get; set; }
 
+        public string Fooky { get; set; }
+
         public bool IsEmailConfirmed { get; set; }
 
         [Required]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Phone]
-        [Display(Name = "Phone number")]
-        public string PhoneNumber { get; set; }
+        public string Role { get; set; }
 
         public string StatusMessage { get; set; }
     }
